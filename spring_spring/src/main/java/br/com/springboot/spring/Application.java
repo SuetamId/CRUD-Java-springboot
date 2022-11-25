@@ -13,6 +13,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @EntityScan(basePackages = "br.com.springboot.spring.model")
 
+
 public class Application {
 
 	

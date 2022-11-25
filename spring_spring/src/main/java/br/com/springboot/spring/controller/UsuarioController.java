@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,13 +32,17 @@ public class UsuarioController {
 	 * @return greeting text
 	 */
 
-	@RequestMapping(value = "/olamundo/{nome}", method = RequestMethod.GET)
+	@RequestMapping(value = "teste/{nome}", method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
+	
 	public String retornaOlaMundo(@PathVariable String nome) {
-
+		
+		Usuario usuario2= new Usuario();
+		usuario2.setNome(nome);
+		
 		Usuario usuario = new Usuario();
 		usuario.setNome(nome);
-
+		
 		usuarioRepository.save(usuario);/* grava no banco de dados */
 
 		return "Ola mundo " + nome;
@@ -47,9 +53,21 @@ public class UsuarioController {
 	@GetMapping(value = "listatodos")
 	
 	@ResponseBody /*retorna JSON*/
-	public ResponseEntity<List<Usuario>>listarUsuarios(){
+	public ResponseEntity<List<Usuario>>listar(){
 		List<Usuario> usuarios = usuarioRepository.findAll();/**faz a consulta no banco*/
 		
 		return new ResponseEntity<List<Usuario>>(usuarios,HttpStatus.OK);
 	}
+	
+	/*metodo salvar dados no banco*/
+	@PostMapping(value = "salvar")
+	@ResponseBody
+	public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){
+		
+		Usuario	user = usuarioRepository.save(usuario);
+		
+		return new ResponseEntity<Usuario>(user, HttpStatus.CREATED);
+	}
+	
+	
 }

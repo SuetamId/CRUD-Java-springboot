@@ -24,6 +24,7 @@ public class Usuario implements Serializable {
 	private double cpf;
 	
 	public Long getId() {
+		
 		return id;
 		
 	}
