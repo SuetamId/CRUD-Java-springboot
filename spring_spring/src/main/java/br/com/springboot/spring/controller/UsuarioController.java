@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.service.annotation.PutExchange;
+
 
 import br.com.springboot.spring.model.Usuario;
 import br.com.springboot.spring.repository.UsuarioRepository;
@@ -77,6 +77,20 @@ public class UsuarioController {
 		Usuario	user = usuarioRepository.saveAndFlush(usuario);
 		
 		return new ResponseEntity<Usuario>(user, HttpStatus.OK);
+	
+		
+
+		
 	}
 	
+
+	/*metodo buscar por parte do nome*/
+	@GetMapping(value = "buscarPorNome")
+	@ResponseBody
+	public ResponseEntity<List<Usuario>> buscarPorNome(@RequestParam(name = "name") String name){
+		
+		List<Usuario> usuario = usuarioRepository.buscarPorNome(name);
+		
+		return new ResponseEntity<List<Usuario>>(usuario, HttpStatus.OK);
+	}
 }
